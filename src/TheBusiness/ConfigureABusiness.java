@@ -34,6 +34,7 @@ import TheBusiness.Supplier.Supplier;
 import TheBusiness.Supplier.SupplierDirectory;
 import TheBusiness.UserAccountManagement.UserAccount;
 import TheBusiness.UserAccountManagement.UserAccountDirectory;
+import java.util.ArrayList;
 
 /**
  *
@@ -193,7 +194,7 @@ class ConfigureABusiness {
         MarketingPersonProfile marketingpersonprofile0 = marketingpersondirectory.newMarketingPersonProfile(xeroxmarketingperson001);
 
         SupplierDirectory suplierdirectory = business.getSupplierDirectory();
-
+/*  Create new method to get suppliers and products in random -Hairui Dou
         Supplier supplier1 = suplierdirectory.newSupplier("Lenovo");
         ProductCatalog productcatalog = supplier1.getProductCatalog();
         Product products1p1 = productcatalog.newProduct("Scanner 3  1", 2000, 16500, 10000);
@@ -216,7 +217,30 @@ class ConfigureABusiness {
         Product products2p6 = productcatalog.newProduct("Speedy color Scanner 611", 900000, 125000, 1650000);
         Product products2p7 = productcatalog.newProduct("Premier Printer 300", 322000, 470000, 736500);
         Product products2p8 = productcatalog.newProduct("Color Photocopier 500", 350000, 580000, 780000);
-
+*/
+        //Randomly populate suppliers & products - Hairui Dou
+        SupplierDirectory supplierDirectory = business.getSupplierDirectory();
+        ArrayList<Product> allProducts = new ArrayList<>();
+        
+        for (int i = 1; i <= 50; i++){
+            Supplier supplier = supplierDirectory.newSupplier("Supplier" + i);
+            ProductCatalog catalog = supplier.getProductCatalog();
+            
+            for (int j = 1; j <= 50; j++){
+                String productName = "Product" + i + "-" + j;
+                
+                int floorPrice = 1000+(int)(Math.random()*1000);
+                int ceilingPrice = floorPrice + 1000 + (int)(Math.random()*2000);
+                int targetPrice = floorPrice + (ceilingPrice - floorPrice) / 2;
+                
+                Product p = catalog.newProduct(productName, floorPrice, ceilingPrice, targetPrice);
+                allProducts.add(p);
+            }
+        }
+    
+        Product products2p1 = allProducts.get(0);
+        Product products2p2 = allProducts.get(1);
+        
 //=============== Define markets and channels...
 
         MarketCatalog mc = business.getMarketCatalog();

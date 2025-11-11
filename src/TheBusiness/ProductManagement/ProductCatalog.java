@@ -51,4 +51,12 @@ public class ProductCatalog {
         return products;
     }
 
+    /* Add new -Hairui
+       create products with name and price rages
+    */
+    public Product newProductWithRange(String name, int floor, int ceiling, int target) {
+    Product p = new Product(name, floor, ceiling, target);
+    products.add(p);
+    return p;
+    }
 }

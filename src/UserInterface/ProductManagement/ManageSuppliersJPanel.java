@@ -11,6 +11,7 @@ import TheBusiness.ProductManagement.ProductCatalog;
 import TheBusiness.ProductManagement.ProductSummary;
 import TheBusiness.Supplier.Supplier;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,7 +39,7 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
 
     public void initializeTable() {
 
-//clear supplier table
+        //clear supplier table
         SuppliersComboBox.removeAllItems();
 
         int rc = SupplierCatalogTable.getRowCount();
@@ -46,35 +47,21 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
         for (i = rc - 1; i >= 0; i--) {
             ((DefaultTableModel) SupplierCatalogTable.getModel()).removeRow(i);
         }
-//load suppliers to the combobox
+        //load suppliers to the combobox
 
         ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSuplierList();
 
         if (supplierlist.isEmpty()) {
             return;
         }
+        
         for (Supplier s : supplierlist) {
             SuppliersComboBox.addItem(s.toString());
+        }
+        
+        if (SuppliersComboBox.getItemCount()>0){
             SuppliersComboBox.setSelectedIndex(0);
-
-            String suppliername = (String) SuppliersComboBox.getSelectedItem();
-
-            selectedsupplier = business.getSupplierDirectory().findSupplier(suppliername);
-
-            ProductCatalog pc = selectedsupplier.getProductCatalog();
-
-            for (Product pt : pc.getProductList()) {
-
-                Object[] row = new Object[5];
-                row[0] = pt;
-                row[1] = pt.getFloorPrice();
-                row[2] = pt.getCeilingPrice();
-                row[3] = pt.getTargetPrice();
-//                row[1] = pt.getPerformanceMeasure();
-//               row[2] = la.getName();
-                ((DefaultTableModel) SupplierCatalogTable.getModel()).addRow(row);
-            }
-
+            refreshTable();
         }
     }
 
@@ -239,7 +226,7 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
         });
         add(productPricePerformanceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 150, -1));
 
-        jLabel7.setText("Marign around target");
+        jLabel7.setText("Margin around target");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 150, -1));
 
         jLabel8.setText("Product");
@@ -254,11 +241,18 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_BackActionPerformed
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
-        // TODO add your handling code here:
-        
-        ManageProductPerformanceDetail mppd = new ManageProductPerformanceDetail(selectedproduct, CardSequencePanel);
-        CardSequencePanel.add(mppd);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+    if (selectedproduct == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Please select a product first!", 
+            "Warning", 
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    ManageProductPerformanceDetail mppd = new ManageProductPerformanceDetail(selectedproduct, CardSequencePanel);
+    CardSequencePanel.add(mppd);
+    ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
 
     }//GEN-LAST:event_NextActionPerformed
 

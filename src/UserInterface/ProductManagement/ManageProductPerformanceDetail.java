@@ -120,8 +120,8 @@ public class ManageProductPerformanceDetail extends javax.swing.JPanel {
         });
         add(productPricePerformanceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 150, -1));
 
-        jLabel7.setText("Marign around target");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 110, -1));
+        jLabel7.setText("Margin around target");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 160, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed

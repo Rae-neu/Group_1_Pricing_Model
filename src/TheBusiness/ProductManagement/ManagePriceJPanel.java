@@ -4,17 +4,34 @@
  */
 package TheBusiness.ProductManagement;
 
+import TheBusiness.Business.Business;
+import TheBusiness.Supplier.Supplier;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hanlinyao
  */
 public class ManagePriceJPanel extends javax.swing.JPanel {
+    
+    //声明变量和面板序列
+    private JPanel CardSequencePanel;
+    private Business business;
 
     /**
      * Creates new form ManagePriceJPanel
      */
-    public ManagePriceJPanel() {
+    public ManagePriceJPanel(Business bz, JPanel jp) {
+        this.business = bz;
+        this.CardSequencePanel = jp;
         initComponents();
+        this.setBackground(new java.awt.Color(0, 153, 153));
+        // 加载数据到表格
+        populateProductTable();
     }
 
     /**
@@ -26,19 +43,173 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
+        btnLower = new javax.swing.JButton();
+        btnHigher = new javax.swing.JButton();
+        btnSimulation = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Supplier", "Product Name", "Floor Price", "Ceiling Price", "Target Price"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        btnLower.setText("Lower");
+        btnLower.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLowerActionPerformed(evt);
+            }
+        });
+
+        btnHigher.setText("Higher");
+        btnHigher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHigherActionPerformed(evt);
+            }
+        });
+
+        btnSimulation.setText("Simulation");
+        btnSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimulationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(btnLower)
+                        .addGap(78, 78, 78)
+                        .addComponent(btnHigher)
+                        .addGap(77, 77, 77)
+                        .addComponent(btnSimulation))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLower)
+                    .addComponent(btnHigher)
+                    .addComponent(btnSimulation))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        CardSequencePanel.remove(this);
+        ((CardLayout) CardSequencePanel.getLayout()).previous(CardSequencePanel);
+    
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnLowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLowerActionPerformed
+        // TODO add your handling code here:
+        Product selectedProduct = getSelectedProduct();
+        if (selectedProduct != null) {
+            // Member 3 核心逻辑: Adjust Target Prices Lower
+            selectedProduct.adjustTargetPrice(-1000); 
+            populateProductTable(); // 刷新表格以显示新价格
+            JOptionPane.showMessageDialog(this, "产品 " + selectedProduct.toString() + " 的目标价格已下调 1000。", "操作成功: 下调目标价格", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLowerActionPerformed
+
+    private void btnHigherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHigherActionPerformed
+        // TODO add your handling code here:
+        Product selectedProduct = getSelectedProduct();
+        if (selectedProduct != null) {
+            // Member 3 核心逻辑: Adjust Target Prices Higher
+            selectedProduct.adjustTargetPrice(1000); 
+            populateProductTable(); // 刷新表格以显示新价格
+            JOptionPane.showMessageDialog(this, "产品 " + selectedProduct.toString() + " 的目标价格已上调 1000。", "操作成功: 上调目标价格", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnHigherActionPerformed
+
+    private void btnSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimulationActionPerformed
+        // TODO add your handling code here:
+        // Member 3 核心逻辑: Run Simulation
+        // 此处应触发基于新目标价格的模拟计算，然后将结果传递给 Member 4。
+        // 由于 Member 4 的报告面板尚未创建，我们在此处显示模拟完成的提示。
+        
+        // 实际的模拟逻辑将涉及重新评估所有历史订单的利润率（ProductSummary / OrderSummary）
+        // 但使用新设置的 Target Price 作为基准。
+        
+        JOptionPane.showMessageDialog(this, "The simulation run has been completed. The new target price will be used to calculate the Performance Reports.", "Simulation successed", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnSimulationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnHigher;
+    private javax.swing.JButton btnLower;
+    private javax.swing.JButton btnSimulation;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    
+    // 核心方法：获取选中的产品对象
+    private Product getSelectedProduct() {
+        // jTable1 是您定义的表格名称
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "please select one product。", "warning", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        // 产品对象存储在表格的第二列（索引 1），这是为了方便直接操作对象
+        return (Product) jTable1.getValueAt(selectedRow, 1);
+    }
+    private void populateProductTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // 清空表格内容
+        
+        // 遍历所有供应商及其产品
+        ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSuplierList();
+
+        for (Supplier s : supplierlist) {
+            ProductCatalog pc = s.getProductCatalog();
+            for (Product pt : pc.getProductList()) {
+                Object[] row = new Object[5];
+                row[0] = s.toString();
+                row[1] = pt; // 存储 Product 对象（表格会显示其 toString() 结果，即产品名称）
+                row[2] = pt.getFloorPrice();
+                row[3] = pt.getCeilingPrice();
+                row[4] = pt.getTargetPrice(); // Member 3 关注的核心数据
+                model.addRow(row);
+            }
+        }
+    }
+    
+       
 }

@@ -26,6 +26,17 @@ public class Product {
         orderitems = new ArrayList();
         
     }
+        //added by linyao
+        public void adjustTargetPrice(int delta) {
+        this.targetPrice += delta;
+        // Ensure target price remains within floor/ceiling limits
+        if (this.targetPrice < this.floorPrice) {
+            this.targetPrice = this.floorPrice;
+        }
+        if (this.targetPrice > this.ceilingPrice) {
+            this.targetPrice = this.ceilingPrice;
+        }
+        }
     public Product(String n, int fp, int cp, int tp) {
         name = n;
         floorPrice = fp;
@@ -39,6 +50,7 @@ public class Product {
         targetPrice = tp;
         return this; //returns itself
     }
+        
     public int getTargetPrice() {return targetPrice;}
     public void addOrderItem(OrderItem oi){     
         orderitems.add(oi);

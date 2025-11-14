@@ -158,15 +158,10 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHigherActionPerformed
 
     private void btnSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimulationActionPerformed
-        // TODO add your handling code here:
-        // Member 3 核心逻辑: Run Simulation
-        // 此处应触发基于新目标价格的模拟计算，然后将结果传递给 Member 4。
-        // 由于 Member 4 的报告面板尚未创建，我们在此处显示模拟完成的提示。
-        
-        // 实际的模拟逻辑将涉及重新评估所有历史订单的利润率（ProductSummary / OrderSummary）
-        // 但使用新设置的 Target Price 作为基准。
-        
-        JOptionPane.showMessageDialog(this, "The simulation run has been completed. The new target price will be used to calculate the Performance Reports.", "Simulation successed", JOptionPane.INFORMATION_MESSAGE);
+     
+    SimulationResultJPanel resultPanel = new SimulationResultJPanel(business, CardSequencePanel);
+    CardSequencePanel.add("SimulationResult", resultPanel);
+    ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_btnSimulationActionPerformed
 
 

@@ -10,6 +10,8 @@ import TheBusiness.OrderManagement.Order;
 import TheBusiness.OrderManagement.OrderItem;
 import TheBusiness.ProductManagement.Product;
 import TheBusiness.Supplier.Supplier;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -57,28 +59,36 @@ public class PricingEngine {
         int ceil   = p.getCeilingPrice();
 
         //loop for orders
-        for (Order o : mol.getOrders()) {        
+        //MasterOrderList 里加 getOrders
+        for (Order o : mol.getOrders()) {     
+            //Order 里加 getOrderItems
+            //loop for order items in each order
             for (OrderItem oi : o.getOrderItems()) { 
-                Product selected = oi.getSelectedProduct(); 
-                if (selected == p) {
-                    int q = oi.getQuantity();
-                    double price = oi.getActualPrice();     // 可能叫 getSalesPrice()/getSellingPrice()
-                    units += q;
-                    revenue += price * q;
+                //get selected product
+                Product selectedProduct = oi.getSelectedProduct(); 
+                if (selectedProduct == p) {
+                    //get quantity and actual price from order items
+                    int quantity = oi.getQuantity();
+                    double price = oi.getActualPrice();  
+                    //sum the units sold and revenue
+                    units = units + quantity;
+                    revenue = revenue +  price * quantity;
+                    
                     if (price < target) below++;
                     else if (price > target) above++;
                 }
             }
+            
         }
-
-        PricePerformance perf = new PricePerformance();
+    //instantiate Price Performance
+    PricePerformance perf = new PricePerformance();
         perf.setSupplierName(supplier.getName());
-        perf.setProductId(p.getProductId());     // 若没有 id，可用 p.getName()
-        perf.setProductName(p.getName());
+        perf.setProductId(p.toString());     
+        perf.setProductName(p.toString());
         perf.setFloorPrice(floor);
         perf.setCeilingPrice(ceil);
         perf.setTargetPriceBefore(target);
-        perf.setTargetPriceAfter(target);        // 先等于 before
+        perf.setTargetPriceAfter(target);        
         perf.setUnitsSold(units);
         perf.setActualAvgPrice(units == 0 ? 0.0 : revenue / units);
         perf.setBelowTargetCount(below);
@@ -86,21 +96,27 @@ public class PricingEngine {
         return perf;
     }
 
-    /** 根据表现决定是否升/降价，并设置 targetPriceAfter */
+    //decide if increase or decrease the sales price based on performance
+    //then set targetPriceAfter 
     public PricePerformance adjustTargetPrice(PricePerformance perf) {
+        //get the previous targer price
         int before = perf.getTargetPriceBefore();
         int floor  = perf.getFloorPrice();
         int ceil   = perf.getCeilingPrice();
-
+        
+        //get the total number of sales = sales above average + sales below average
         int total = perf.getBelowTargetCount() + perf.getAboveTargetCount();
+        //calculate the above/below ratio
         double belowRatio = (total == 0) ? 0.0 : (perf.getBelowTargetCount() * 1.0 / total);
         double aboveRatio = (total == 0) ? 0.0 : (perf.getAboveTargetCount() * 1.0 / total);
-
-        boolean lower = belowRatio >= (1.0 - overTargetRatioThreshold)
+        //decide if to increase or decrease the price in comparison with the predefined threshold
+        //if below ratio is higher than expected threshold, then the target price should decrease by 10%
+        boolean lower = belowRatio >= (1.0 - overTargetRatioThreshold) //1-0.8
                      || perf.getActualAvgPrice() <= 0.90 * before;
+        //if the above ratio is higher than expected threshold, then the target price should increase by 5%
         boolean raise = aboveRatio >= overTargetRatioThreshold
                      || perf.getActualAvgPrice() >= 1.05 * before;
-
+        //define the new target price
         int after = before;
         if (lower && !raise) {
             after = Math.max((int)Math.round(before * (1.0 - priceDecreaseStep)), floor);
@@ -110,17 +126,22 @@ public class PricingEngine {
             int towardsAvg = (int)Math.round(perf.getActualAvgPrice());
             after = Math.max(floor, Math.min(ceil, towardsAvg));
         }
+        //set the new target price to the price performance
         perf.setTargetPriceAfter(after);
         return perf;
     }
 
-    /** 批量遍历所有供应商/产品；writeBack=true 时把新 target 写回 Product */
+    
     public List<PricePerformance> analyzeAllAndApply(boolean writeBack) {
         List<PricePerformance> out = new ArrayList<>();
+        //get the supplier list and loop for each supplier
         for (Supplier s : business.getSupplierDirectory().getSupplierList()) {
+            //get each supplier's product list and loop for each product
             for (Product p : s.getProductCatalog().getProductList()) {
+                //adjust target price for each product
                 PricePerformance perf = analyzeProduct(s, p);
                 adjustTargetPrice(perf);
+                //if write back is true then update the target sales price
                 if (writeBack) {
                     p.setTargetPrice(perf.getTargetPriceAfter());
                 }
@@ -128,6 +149,7 @@ public class PricingEngine {
             }
         }
         return out;
-    }
+    }    
+        
 }
 

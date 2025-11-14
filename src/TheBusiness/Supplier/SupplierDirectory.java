@@ -30,7 +30,7 @@ public class SupplierDirectory {
         }
         return null;
         }
-    public ArrayList<Supplier> getSuplierList(){
+    public ArrayList<Supplier> getSupplierList(){
         return suppliers;
     }
     

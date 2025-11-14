@@ -88,6 +88,11 @@ public class Product {
     public void setName(String n){
         name = n;
     }
+
+    public void setTargetPrice(int targetPrice) {
+        this.targetPrice = targetPrice;
+    }
+    
     @Override
     public String toString(){
         return name;

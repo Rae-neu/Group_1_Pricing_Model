@@ -49,7 +49,7 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
         }
         //load suppliers to the combobox
 
-        ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSuplierList();
+        ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSupplierList();
 
         if (supplierlist.isEmpty()) {
             return;

@@ -11,6 +11,7 @@
 package UserInterface.Main.WorkSpaceProfiles;
 
 import TheBusiness.Business.Business;
+import TheBusiness.ProductManagement.ManagePriceJPanel;
 import UserInterface.ManageTheBusiness.ManageTheBusinessJPanel;
 import UserInterface.ProductManagement.ManageSuppliersJPanel;
 import javax.swing.JPanel;
@@ -173,7 +174,11 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardSequencePanel.removeAll();
         //    IdentifyEventTypes iet= new IdentifyEventTypes(businessunit, CardSequencePanel);
-
+        // added by linyao
+        ManagePriceJPanel managePricesPanel = new ManagePriceJPanel(business, CardSequencePanel);
+        
+        // 将新面板添加到卡片序列中
+        CardSequencePanel.add("ManagePrices", managePricesPanel);
         //    CardSequencePanel.add("IdentifyEventTypes", iet);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
         //((java.awt.CardLayout)CardSequencePanel.getLayout()).show(CardSequencePanel, "IdentifyEventTypes");

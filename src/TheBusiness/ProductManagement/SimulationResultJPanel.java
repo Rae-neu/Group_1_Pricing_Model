@@ -4,17 +4,30 @@
  */
 package TheBusiness.ProductManagement;
 
+import TheBusiness.Business.Business;
+import TheBusiness.Supplier.Supplier;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hanlinyao
  */
 public class SimulationResultJPanel extends javax.swing.JPanel {
+    private JPanel CardSequencePanel;
+    private Business business;
 
     /**
      * Creates new form SimulationResultJPanel
      */
-    public SimulationResultJPanel() {
+    public SimulationResultJPanel(Business bz, JPanel jp) {
+        this.business = bz;
+        this.CardSequencePanel = jp;
         initComponents();
+        this.setBackground(new java.awt.Color(0, 153, 153)); // 设置背景颜色
+        populateSimulationTable();
     }
 
     /**
@@ -26,19 +39,121 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Product Name", "Old Target Price", "New Target Price", "Simulated Sales Volume", "Simulated Margin"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Finalize Report");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(292, 292, 292)
+                        .addComponent(jButton2)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jButton2)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CardSequencePanel.remove(this);
+        ((CardLayout) CardSequencePanel.getLayout()).previous(CardSequencePanel);
+    
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        // 移交给 Member 4 的逻辑
+        javax.swing.JOptionPane.showMessageDialog(this, "The simulation data has been determined and is ready to be handed over to the profit optimization module of Member 4", "Handoff completed", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        // 此处应添加导航到 Member 4 报告面板的代码
+        // ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void populateSimulationTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // 清空表格内容
+        // 遍历所有供应商及其产品
+        ArrayList<Supplier> supplierList = business.getSupplierDirectory().getSuplierList();
+
+        for (Supplier s : supplierList) {
+            ProductCatalog pc = s.getProductCatalog();
+            for (Product pt : pc.getProductList()) {
+                
+                // 1. 生成产品摘要（ProductSummary）以获取模拟绩效
+                // 注意：ProductSummary 会使用产品当前设置的 targetPrice 来计算性能。
+                ProductSummary simulatedSummary = new ProductSummary(pt);
+                
+                // 2. 准备行数据
+                Object[] row = new Object[5];
+                row[0] = pt.toString(); // Product Name
+                
+                // *** 重要说明：获取“旧目标价格”需要更复杂的逻辑来保存历史数据。
+                // *** 鉴于当前项目结构，我们暂时使用当前目标价作为占位符，但在实际项目中，
+                // *** 您需要在调整价格前将旧价格保存在一个单独的变量或数据结构中。
+                int oldTargetPrice = pt.getTargetPrice(); // 仅为占位符
+                
+                row[1] = oldTargetPrice; // Old Target Price (应是调整前的价格)
+                row[2] = pt.getTargetPrice(); // New Target Price (当前价格)
+                row[3] = simulatedSummary.getSalesRevenues(); // Simulated Sales Volume (使用实际销售额)
+                row[4] = simulatedSummary.getProductPricePerformance(); // Simulated Margin (使用当前目标价计算的利润性能)
+                
+                model.addRow(row);
+            }
+        }
+    }
+        
 }

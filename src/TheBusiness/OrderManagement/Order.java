@@ -87,4 +87,8 @@ public void CancelOrder(){
 public void Submit(){
     status = "Submitted";
 }
+
+    public ArrayList<OrderItem> getOrderItems() {
+    return orderitems;
+    }
 }

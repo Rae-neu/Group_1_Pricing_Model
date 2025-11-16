@@ -110,5 +110,7 @@ public class Product {
     public int getCeilingPrice(){
         return ceilingPrice;
     }
-
+public void setTargetPrice(int targetPrice) {
+        this.targetPrice = targetPrice;
+    }
 }

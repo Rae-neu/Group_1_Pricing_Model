@@ -120,9 +120,9 @@ class ConfigureABusiness {
         Product products1p7 = productcatalog.newProduct("Printer 3", 22000, 60000, 36500);
         Product products1p8 = productcatalog.newProduct("Photocopier 3", 30000, 70000, 50000);
 
-        //       SupplierDirectory suplierdirectory = business.getSupplierDirectory();
+            //   SupplierDirectory suplierdirectory = business.getSupplierDirectory();
         Supplier supplier2 = suplierdirectory.newSupplier("Epson");
-          Supplier supplier3 = suplierdirectory.newSupplier("white");
+        
          
         productcatalog = supplier2.getProductCatalog();
         
@@ -138,6 +138,11 @@ class ConfigureABusiness {
         Product products2p6 = productcatalog.newProduct("Speedy color Scanner 611", 900000, 125000, 1650000);
         Product products2p7 = productcatalog.newProduct("Premier Printer 300", 322000, 470000, 736500);
         Product products2p8 = productcatalog.newProduct("Color Photocopier 500", 350000, 580000, 780000);
+        
+        
+      
+        
+        
 
 // Create User accounts that link to specific profiles
         UserAccountDirectory uadirectory = business.getUserAccountDirectory();

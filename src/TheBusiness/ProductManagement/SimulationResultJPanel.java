@@ -42,7 +42,8 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,12 +65,15 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Finalize Report");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Maximize Product Margins");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Simulation Reports ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,24 +83,30 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(jButton2)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGap(294, 294, 294)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(258, 258, 258)
+                        .addComponent(jLabel1)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addGap(27, 27, 27)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButton2)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jButton3)
+                .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -107,18 +117,27 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
     
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        // 移交给 Member 4 的逻辑
-        javax.swing.JOptionPane.showMessageDialog(this, "The simulation data has been determined and is ready to be handed over to the profit optimization module of Member 4", "Handoff completed", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        // 此处应添加导航到 Member 4 报告面板的代码
-        // ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+          if (selectedRow >= 0) {
+            ProductSummary selectedsummary = (ProductSummary) jTable1.getValueAt(selectedRow, 0);
+            
+            selectedsummary.getProductPricePerformance();
+            selectedsummary.g
+            
+            
+            
+          }
+            
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

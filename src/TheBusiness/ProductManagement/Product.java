@@ -17,6 +17,9 @@ public class Product {
     private int floorPrice;
     private int ceilingPrice;
     private int targetPrice;
+    
+    //Creating ArrayList of ChangeRecords to capture list of price changes-Parker
+    ArrayList<ChangeRecord> records;
     ArrayList<OrderItem> orderitems;
         public Product( int fp, int cp, int tp) {
 
@@ -24,10 +27,12 @@ public class Product {
         ceilingPrice = cp;
         targetPrice = tp;
         orderitems = new ArrayList();
-        
+        records = new ArrayList();
     }
         //added by linyao
         public void adjustTargetPrice(int delta) {
+            
+            
         this.targetPrice += delta;
         // Ensure target price remains within floor/ceiling limits
         if (this.targetPrice < this.floorPrice) {
@@ -111,6 +116,19 @@ public class Product {
         return ceilingPrice;
     }
 public void setTargetPrice(int targetPrice) {
+    
+        //ChangeRecord record = new ChangeRecord();
         this.targetPrice = targetPrice;
     }
+
+    public ArrayList<OrderItem> getOrderitems() {
+        return orderitems;
+    }
+
+    public void setOrderitems(ArrayList<OrderItem> orderitems) {
+        this.orderitems = orderitems;
+    }
+    
+    
+ 
 }

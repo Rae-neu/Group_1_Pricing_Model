@@ -32,7 +32,7 @@ public class PricingMainFrame extends javax.swing.JFrame {
     public PricingMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-
+        System.out.print(business.getSupplierDirectory().getSuplierList().size());
     }
 
     public void insert(JPanel jpanel) {

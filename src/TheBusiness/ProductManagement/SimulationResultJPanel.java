@@ -125,7 +125,8 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
           if (selectedRow >= 0) {
             ProductSummary selectedsummary = (ProductSummary) jTable1.getValueAt(selectedRow, 0);
             Product selectedproduct = selectedsummary.getSubjectproduct();
-            
+            //add new change in case not already captured.
+            selectedproduct.newchange(selectedproduct.getTargetPrice());
            //selectedsummary.maxTargetPrice(selectedsummary);
 
             //create local variables for pricing, kinda REDUNDANT

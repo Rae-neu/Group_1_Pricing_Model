@@ -129,6 +129,12 @@ public void setTargetPrice(int targetPrice) {
         this.orderitems = orderitems;
     }
     
+    public ChangeRecord newchange(int cr){
+        ChangeRecord c = new ChangeRecord(cr);
+        records.add(c);
+        return c;
+    }
+    
     
  
 }

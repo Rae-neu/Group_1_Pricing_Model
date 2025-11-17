@@ -44,6 +44,17 @@ class ConfigureABusiness {
 
     static Business initialize() {
         Business business = new Business("Xerox");
+        
+        
+        
+        
+        
+        
+        
+        
+        SupplierDirectory Suppliers = business.getSupplierDirectory();
+        
+        
 
 // Create Persons
         PersonDirectory persondirectory = business.getPersonDirectory();
@@ -93,7 +104,14 @@ class ConfigureABusiness {
 
         //       SupplierDirectory suplierdirectory = business.getSupplierDirectory();
         Supplier supplier2 = suplierdirectory.newSupplier("Epson");
+        
+        
         productcatalog = supplier2.getProductCatalog();
+        
+       
+        
+            
+        
         Product products2p1 = productcatalog.newProduct("Scanner 13  1", 12000, 26000, 18500);
         Product products2p2 = productcatalog.newProduct("Scanner 14", 90000, 165000, 125000);
         Product products2p3 = productcatalog.newProduct("Color Printer 112", 422000, 540000, 495000);

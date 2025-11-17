@@ -10,10 +10,12 @@
  */
 package UserInterface.Main.WorkSpaceProfiles;
 
+import ProductPerformance.ProductPerformance;
 import TheBusiness.Business.Business;
 import TheBusiness.ProductManagement.ManagePriceJPanel;
 import UserInterface.ManageTheBusiness.ManageTheBusinessJPanel;
 import UserInterface.ProductManagement.ManageSuppliersJPanel;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -189,6 +191,13 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
 //Parker Generating final performance reports
 
 
+        ProductPerformance Panel = new ProductPerformance(business, CardSequencePanel);
+       CardSequencePanel.add("Final Reports Panel", Panel);
+
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+       
+        layout.next(CardSequencePanel);
+     
         
         
         
@@ -199,11 +208,11 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         
         
         
-        CardSequencePanel.removeAll();
+        
 //        ManageIncidents aos = new  ManageIncidents(businessunit, CardSequencePanel);
         // aos.setAgenda(businessunit.getRiskManagementAgenda());
 //        CardSequencePanel.add("RiskAgendaObjectives", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+       
 }//GEN-LAST:event_jButton11ActionPerformed
 
 

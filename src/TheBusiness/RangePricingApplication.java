@@ -18,7 +18,7 @@ public class RangePricingApplication {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-       Business business = ConfigureABusiness.initializeMarkets();
+       //Business business = ConfigureABusiness.initializeMarkets();
               
     }
 

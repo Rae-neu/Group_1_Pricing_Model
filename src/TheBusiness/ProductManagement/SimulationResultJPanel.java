@@ -8,6 +8,7 @@ import TheBusiness.Business.Business;
 import TheBusiness.Supplier.Supplier;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -118,14 +119,46 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Parker making this maximize profit method.
+        
         int selectedRow = jTable1.getSelectedRow();
           if (selectedRow >= 0) {
             ProductSummary selectedsummary = (ProductSummary) jTable1.getValueAt(selectedRow, 0);
+            Product selectedproduct = selectedsummary.getSubjectproduct();
             
-            selectedsummary.getProductPricePerformance();
-            selectedsummary.g
+           //selectedsummary.maxTargetPrice(selectedsummary);
+
+            //create local variables for pricing, kinda REDUNDANT
+            int tprice = selectedproduct.getTargetPrice();
+            int Lprice = selectedproduct.getFloorPrice();
+            int Hprice = selectedproduct.getCeilingPrice();
+           
+         
+//   
+           while (true) {
+                       //move prices up and down depending on the target price marigns approach zero as product prices are optimized to allign target price with what people are actually willing to pay.
+             int performance = selectedsummary.getProductPricePerformance();
+
+             if (performance > 0) {
+               selectedproduct.adjustTargetPrice(+1);
+           } else if (performance < 0) {
+               selectedproduct.adjustTargetPrice(-1);
+           } else {
+               break; // neutral
+                 }
+
+    // stop if bounds are hit
+    if (selectedproduct.getTargetPrice() == selectedproduct.getCeilingPrice() ||
+        selectedproduct.getTargetPrice() == selectedproduct.getFloorPrice()) {
+        break;
+    }
+}
+
+             JOptionPane.showMessageDialog(CardSequencePanel, "Profit Maximized!");
             
+            populateSimulationTable();
             
+           
             
           }
             
@@ -158,7 +191,7 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
                 
                 // 2. 准备行数据
                 Object[] row = new Object[5];
-                row[0] = pt.toString(); // Product Name
+                row[0] = simulatedSummary; // Product-Parker
                 
                 // *** 重要说明：获取“旧目标价格”需要更复杂的逻辑来保存历史数据。
                 // *** 鉴于当前项目结构，我们暂时使用当前目标价作为占位符，但在实际项目中，

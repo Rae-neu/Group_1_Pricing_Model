@@ -95,5 +95,24 @@ public class ProductSummary {
     public void setRank(int rank) {
         this.rank = rank;
     }
+    //Parker- we dont need this redudant method
     
+       public void maxTargetPrice(ProductSummary summary){
+           Product product = summary.getSubjectproduct();
+           int actualprice = product.getTargetPrice();
+           
+           int newtargetprice = Math.min(product.getFloorPrice(),Math.max(actualprice, product.getCeilingPrice()));
+           
+           product.setTargetPrice(newtargetprice);
+           
+        
+        
+    }
+
+
+    
+     @Override
+    public String toString() {
+        return  subjectproduct.toString();
+    }
 }

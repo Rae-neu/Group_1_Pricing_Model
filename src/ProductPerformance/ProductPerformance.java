@@ -5,7 +5,14 @@
 package ProductPerformance;
 
 import TheBusiness.Business.Business;
+import TheBusiness.ProductManagement.ChangeRecord;
+import TheBusiness.ProductManagement.Product;
+import TheBusiness.ProductManagement.ProductCatalog;
+import TheBusiness.ProductManagement.ProductSummary;
+import TheBusiness.Supplier.Supplier;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -116,6 +123,37 @@ public class ProductPerformance extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void PopulateTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); 
+        
+        
+        ArrayList<Supplier> supplierlist = biz.getSupplierDirectory().getSuplierList();
+        
+        
+        
+        for (Supplier s : supplierlist) {
+            ProductCatalog products = s.getProductCatalog();
+              for (Product p : products.getProductList()){
+                  ProductSummary summary = new ProductSummary(p);
+                  ArrayList<ChangeRecord> records = p.getRecords();
+                  
+                  Object[] row = new Object [6];
+                  
+                  row[0] = summary;
+                  row[1] = summary.getSalesRevenues();
+                
+                  //change record grabbed from second most recent change 
+                  if (records.size() >= 2){
+                       row[2] = records.get(records.size()-2);
+                  } else {
+                      row[2] = null;
+                  }
+                 
+                  row[3] = summary.getSubjectproduct().getTargetPrice();
+                  row[4] = summary.getNumberBelowTarget();
+                  row[5] = summary.getNumberofsalesabovetarget();
+                  
+              }
+        }
     }
 }

@@ -4,6 +4,7 @@
  */
 package TheBusiness.ProductManagement;
 
+import ProductPerformance.ProductPerformance;
 import TheBusiness.Business.Business;
 import TheBusiness.Supplier.Supplier;
 import java.awt.CardLayout;
@@ -43,8 +44,9 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        MaxMargins = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        FinalReports = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -66,15 +68,22 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Maximize Product Margins");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        MaxMargins.setText("Maximize Product Margins");
+        MaxMargins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                MaxMarginsActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Simulation Reports ");
+
+        FinalReports.setText("See Final Reports");
+        FinalReports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalReportsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,14 +95,16 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
                         .addGap(22, 22, 22)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(258, 258, 258)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(MaxMargins)
+                        .addGap(56, 56, 56)
+                        .addComponent(FinalReports)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,9 +116,11 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jButton3)
-                .addGap(53, 53, 53))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MaxMargins)
+                    .addComponent(FinalReports))
+                .addGap(52, 52, 52))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -118,7 +131,7 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
     
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void MaxMarginsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaxMarginsActionPerformed
         //Parker making this maximize profit method.
         
         int selectedRow = jTable1.getSelectedRow();
@@ -126,6 +139,8 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
             ProductSummary selectedsummary = (ProductSummary) jTable1.getValueAt(selectedRow, 0);
             Product selectedproduct = selectedsummary.getSubjectproduct();
             //add new change in case not already captured.
+            ArrayList<ChangeRecord> records = new ArrayList();
+            selectedproduct.setRecords(records);
             selectedproduct.newchange(selectedproduct.getTargetPrice());
            //selectedsummary.maxTargetPrice(selectedsummary);
 
@@ -165,12 +180,24 @@ public class SimulationResultJPanel extends javax.swing.JPanel {
             
         
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_MaxMarginsActionPerformed
+
+    private void FinalReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalReportsActionPerformed
+       ProductPerformance Panel = new ProductPerformance(business, CardSequencePanel);
+       CardSequencePanel.add("Final Reports Panel", Panel);
+
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+       
+        layout.next(CardSequencePanel);
+     
+       
+    }//GEN-LAST:event_FinalReportsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton FinalReports;
+    private javax.swing.JButton MaxMargins;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

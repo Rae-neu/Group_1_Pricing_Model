@@ -47,4 +47,53 @@ public class ProductSummary {
     public boolean isProductAlwaysAboveTarget() {
         return false; // to be implemented
     }
+
+    public Product getSubjectproduct() {
+        return subjectproduct;
+    }
+
+    public void setSubjectproduct(Product subjectproduct) {
+        this.subjectproduct = subjectproduct;
+    }
+
+    public int getNumberofsalesabovetarget() {
+        return numberofsalesabovetarget;
+    }
+
+    public void setNumberofsalesabovetarget(int numberofsalesabovetarget) {
+        this.numberofsalesabovetarget = numberofsalesabovetarget;
+    }
+
+    public int getNumberofsalesbelowtarget() {
+        return numberofsalesbelowtarget;
+    }
+
+    public void setNumberofsalesbelowtarget(int numberofsalesbelowtarget) {
+        this.numberofsalesbelowtarget = numberofsalesbelowtarget;
+    }
+
+    public int getProductpriceperformance() {
+        return productpriceperformance;
+    }
+
+    public void setProductpriceperformance(int productpriceperformance) {
+        this.productpriceperformance = productpriceperformance;
+    }
+
+    public int getAcutalsalesvolume() {
+        return acutalsalesvolume;
+    }
+
+    public void setAcutalsalesvolume(int acutalsalesvolume) {
+        this.acutalsalesvolume = acutalsalesvolume;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+    
 }

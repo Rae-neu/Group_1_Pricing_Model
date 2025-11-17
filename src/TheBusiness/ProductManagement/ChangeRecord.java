@@ -24,4 +24,9 @@ public class ChangeRecord {
         this.oldprice = oldprice;
     }
     
+    @Override 
+    public String toString (){
+        return String.valueOf(oldprice);
+    }
+    
 }

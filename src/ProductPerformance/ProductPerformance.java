@@ -85,26 +85,30 @@ public class ProductPerformance extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(102, 102, 102)
                         .addComponent(jLabel1)
                         .addGap(29, 29, 29)
-                        .addComponent(BackButton)))
-                .addContainerGap(370, Short.MAX_VALUE))
+                        .addComponent(BackButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(573, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(BackButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BackButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -142,16 +146,25 @@ public class ProductPerformance extends javax.swing.JPanel {
                   row[0] = summary;
                   row[1] = summary.getSalesRevenues();
                 
-                  //change record grabbed from second most recent change 
-                  if (records.size() >= 2){
-                       row[2] = records.get(records.size()-2);
-                  } else {
-                      row[2] = null;
-                  }
-                 
+                  //change record grabbed from most recent change and multiple checks to prevent table implosion due to null values
+                 if (records != null && records.size() >= 1) {
+    
+                 row[2] = records.get(records.size() - 1);
+                 } else if (records != null && !records.isEmpty()) {
+   
+                 row[2] = records.get(records.size() - 1);
+                } else {
+                // no records at all
+                row[2] = null;
+}
+
+
                   row[3] = summary.getSubjectproduct().getTargetPrice();
                   row[4] = summary.getNumberBelowTarget();
                   row[5] = summary.getNumberofsalesabovetarget();
+                  
+                  model.addRow(row);
+
                   
               }
         }

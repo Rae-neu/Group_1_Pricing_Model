@@ -186,7 +186,19 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+//Parker Generating final performance reports
 
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         CardSequencePanel.removeAll();
 //        ManageIncidents aos = new  ManageIncidents(businessunit, CardSequencePanel);
         // aos.setAgenda(businessunit.getRiskManagementAgenda());

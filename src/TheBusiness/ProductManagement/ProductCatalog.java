@@ -27,6 +27,7 @@ public class ProductCatalog {
     }
     public Product newProduct(int fp, int cp, int tp) {
         Product p = new Product(fp, cp, tp);
+        p.newchange(tp);
         products.add(p);
         return p;
     }

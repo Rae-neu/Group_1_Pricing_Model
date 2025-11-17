@@ -52,13 +52,13 @@ class ConfigureABusiness {
         
         SupplierDirectory suplierdirectory = business.getSupplierDirectory();
         
-          System.out.print("hello world");
+          
         
         
           for (int i = 0; i <= 50; i++){
             Supplier supplier = suplierdirectory.newSupplier("Supplier" + i);
             ProductCatalog catalog = supplier.getProductCatalog();
-            System.out.print("hello world");
+         
             for (int j = 0; j <= 50; j++){
                 String productName = "Product" + i + "-" + j;
                 
@@ -122,8 +122,8 @@ class ConfigureABusiness {
 
         //       SupplierDirectory suplierdirectory = business.getSupplierDirectory();
         Supplier supplier2 = suplierdirectory.newSupplier("Epson");
-        
-        
+          Supplier supplier3 = suplierdirectory.newSupplier("white");
+         
         productcatalog = supplier2.getProductCatalog();
         
        

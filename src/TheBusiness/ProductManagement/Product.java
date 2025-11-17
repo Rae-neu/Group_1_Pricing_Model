@@ -134,6 +134,16 @@ public void setTargetPrice(int targetPrice) {
         records.add(c);
         return c;
     }
+
+    public ArrayList<ChangeRecord> getRecords() {
+        return records;
+    }
+
+    public void setRecords(ArrayList<ChangeRecord> records) {
+        this.records = records;
+    }
+    
+    
     
     
  

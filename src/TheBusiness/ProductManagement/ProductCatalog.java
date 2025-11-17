@@ -27,6 +27,8 @@ public class ProductCatalog {
     }
     public Product newProduct(int fp, int cp, int tp) {
         Product p = new Product(fp, cp, tp);
+        ArrayList<ChangeRecord> changes = new ArrayList();
+        p.setRecords(changes);
         p.newchange(tp);
         products.add(p);
         return p;

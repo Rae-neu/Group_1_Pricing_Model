@@ -24,6 +24,8 @@ import TheBusiness.Supplier.SupplierDirectory;
 import TheBusiness.UserAccountManagement.UserAccount;
 import TheBusiness.UserAccountManagement.UserAccountDirectory;
 
+
+
 /**
  *
  * @author kal bugrara
@@ -33,6 +35,32 @@ class ConfigureABusiness {
     static Business initialize() {
         Business business = new Business("Xerox");
         SupplierDirectory suplierdirectory = business.getSupplierDirectory();
+        
+        
+
+        
+          
+        
+         Faker faker = new Faker();
+        
+        
+          for (int i = 0; i <= 50; i++){
+            Supplier supplier = suplierdirectory.newSupplier("Supplier" + i);
+            ProductCatalog catalog = supplier.getProductCatalog();
+         
+            for (int j = 0; j <= 50; j++){
+                String productName = "Product" + i + "-" + j;
+                
+                int floorPrice = 1000+(int)(Math.random()*1000);
+                int ceilingPrice = floorPrice + 1000 + (int)(Math.random()*2000);
+                int targetPrice = floorPrice + (ceilingPrice - floorPrice) / 2;
+                
+                Product p = catalog.newProduct(productName, floorPrice, ceilingPrice, targetPrice);
+                System.out.print(business.getSupplierDirectory().getSuplierList().size());
+            
+            
+            }
+          }
 
         Supplier supplier1 = suplierdirectory.newSupplier("Lenovo");
         ProductCatalog productcatalog = supplier1.getProductCatalog();

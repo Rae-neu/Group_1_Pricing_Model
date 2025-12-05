@@ -68,10 +68,11 @@ class ConfigureABusiness {
                 
                 Product p = catalog.newProduct(productName, floorPrice, ceilingPrice, targetPrice);
                 System.out.print(business.getSupplierDirectory().getSuplierList().size());
-            }
             
-          
+            
             }
+          }
+            
         
 
 // Create Persons
@@ -208,10 +209,14 @@ class ConfigureABusiness {
         
         */
          
-        return business;
+       
             
+     return business;
+            }
           }
-    }
+    
+    
+
     
     
 
